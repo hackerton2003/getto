@@ -1,0 +1,30 @@
+$kind: http-request
+name: 'Refresh Token'
+order: 6000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/refresh/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "refresh_token": "{{customer_refresh_token}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Token refresh returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("New access token returned", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("access");
+      });
+      const json = pm.response.json();
+      if (json.access) {
+        pm.environment.set("customer_access_token", json.access);
+        pm.environment.set("customer_refresh_token", json.refresh);
+      }

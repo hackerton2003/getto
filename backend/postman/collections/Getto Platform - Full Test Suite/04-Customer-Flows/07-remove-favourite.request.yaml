@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Remove Favourite Property'
+order: 7000
+method: DELETE
+url: '{{base_url}}/{{api_prefix}}/customers/me/favourites/{{verified_property_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Remove favourite returns 204 or 200", function () {
+        pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });

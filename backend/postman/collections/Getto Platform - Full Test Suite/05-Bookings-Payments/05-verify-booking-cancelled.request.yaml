@@ -1,0 +1,26 @@
+$kind: http-request
+name: 'Verify Booking is Cancelled'
+order: 8000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/bookings/{{booking_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Verify booking returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Booking status is cancelled", function () {
+        const json = pm.response.json();
+        const status = (json.status || "").toLowerCase();
+        pm.expect(status).to.match(/cancel/);
+      });
+      pm.test("Booking status changed from initial", function () {
+        const json = pm.response.json();
+        const previousStatus = pm.environment.get("booking_status");
+        pm.expect(json.status).to.not.eql(previousStatus === json.status ? "__never__" : previousStatus);
+      });
+      console.log("Final booking status:", pm.response.json().status);

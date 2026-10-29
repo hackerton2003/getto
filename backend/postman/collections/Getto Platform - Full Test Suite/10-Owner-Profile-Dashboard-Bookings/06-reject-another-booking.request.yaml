@@ -1,0 +1,18 @@
+$kind: http-request
+name: 'Reject Another Owner Booking'
+order: 6000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/owners/me/bookings/{{booking_id_2}}/reject/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      if (!pm.environment.get("booking_id_2")) pm.execution.skipRequest();
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner rejects pending booking", () => pm.response.to.have.status(200));
+      pm.expect(pm.response.json().status).to.eql("rejected");

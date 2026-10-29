@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'List Audit Logs'
+order: 6000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/system/audit-logs/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List audit logs returns 200", function () {
+        pm.response.to.have.status(200);
+      });

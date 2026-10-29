@@ -1,0 +1,23 @@
+$kind: http-request
+name: 'Staff - Resolve Report'
+order: 3000
+method: PATCH
+url: '{{base_url}}/{{api_prefix}}/staff/reports/{{report_id}}/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "status": "reviewed",
+      "resolution_note": "Reviewed during Postman test."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Report review returns 200", () => pm.response.to.have.status(200));
+      pm.expect(pm.response.json().status).to.eql("reviewed");

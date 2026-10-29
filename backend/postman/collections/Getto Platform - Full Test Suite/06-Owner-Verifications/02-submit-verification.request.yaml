@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'Owner - Submit Verification (select a PDF/JPG/PNG file)'
+order: 2000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/owners/me/properties/{{property_id}}/verifications/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+body:
+  type: form-data
+  content:
+    - key: file
+      type: file
+      src: ''
+    - key: description
+      type: text
+      value: 'Postman verification test'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      if (pm.environment.get("run_file_uploads") !== "true") pm.execution.skipRequest();
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Verification upload returns 201", () => pm.response.to.have.status(201));
+      const body = pm.response.json();
+      if (body.id) pm.environment.set("verification_id", body.id);

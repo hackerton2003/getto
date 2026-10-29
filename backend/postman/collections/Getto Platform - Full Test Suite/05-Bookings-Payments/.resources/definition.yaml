@@ -1,0 +1,5 @@
+$kind: collection
+name: '05 - Bookings & Payments'
+description: |-
+  Full booking lifecycle: create → get → owner decision → customer cancel → verify state.
+  Also covers payments and receipts.

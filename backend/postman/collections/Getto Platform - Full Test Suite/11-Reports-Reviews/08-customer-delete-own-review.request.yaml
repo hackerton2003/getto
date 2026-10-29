@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'Customer - Delete Own Review'
+order: 8000
+method: DELETE
+url: '{{base_url}}/{{api_prefix}}/reviews/{{review_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Customer review delete returns 204", () => pm.response.to.have.status(204));

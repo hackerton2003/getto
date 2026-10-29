@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Cross-User Booking Access (should fail)'
+order: 4000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/bookings/{{booking_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner cannot access customer booking (403 or 404)", function () {
+        pm.expect(pm.response.code).to.be.oneOf([403, 404]);
+      });

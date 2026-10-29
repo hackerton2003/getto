@@ -1,0 +1,33 @@
+$kind: http-request
+name: 'Login - Owner'
+order: 4000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/login/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "account_type": "owner",
+      "email": "{{owner_email}}",
+      "password": "{{owner_password}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner login returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response contains access token", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("access");
+        pm.expect(json).to.have.property("refresh");
+      });
+      const json = pm.response.json();
+      if (json.access) {
+        pm.environment.set("owner_access_token", json.access);
+        pm.environment.set("owner_refresh_token", json.refresh);
+      }

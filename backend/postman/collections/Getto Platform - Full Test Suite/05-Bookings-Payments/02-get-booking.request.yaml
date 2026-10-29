@@ -1,0 +1,22 @@
+$kind: http-request
+name: 'Get Booking Detail'
+order: 2000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/bookings/{{booking_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Get booking returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Booking id matches", function () {
+        const json = pm.response.json();
+        pm.expect(String(json.id)).to.eql(pm.environment.get("booking_id"));
+      });
+      const json = pm.response.json();
+      pm.environment.set("booking_status", json.status);
+      console.log("Booking status before cancel:", json.status);

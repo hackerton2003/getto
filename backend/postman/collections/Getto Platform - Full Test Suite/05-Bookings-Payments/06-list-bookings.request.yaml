@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'List Bookings'
+order: 9000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/bookings/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List bookings returns 200", function () {
+        pm.response.to.have.status(200);
+      });

@@ -1,0 +1,8 @@
+$kind: collection
+name: '04 - Customer Flows'
+description: 'Customer profile, preferences, favourites, reviews, and reports.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{customer_access_token}}'

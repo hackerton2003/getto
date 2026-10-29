@@ -1,0 +1,28 @@
+$kind: http-request
+name: 'Login - Staff'
+order: 5000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/login/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "account_type": "staff",
+      "email": "{{staff_email}}",
+      "password": "{{staff_password}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Staff login returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      const json = pm.response.json();
+      if (json.access) {
+        pm.environment.set("staff_access_token", json.access);
+        pm.environment.set("staff_refresh_token", json.refresh);
+      }

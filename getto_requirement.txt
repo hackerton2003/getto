@@ -1,0 +1,975 @@
+
+GHETTO PLATFORM
+Country-Wide Customer Accommodation Platform
+Software Requirements Specification (SRS)
+Functional Requirements, Non-Functional Requirements and Database Design — Development-Ready Edition
+
+1. Introduction
+This document specifies the complete functional requirements, non-functional requirements and database design for the Ghetto Platform — a country-wide system connecting university customers with accommodation owners for the discovery, booking and payment of houses and rooms, supported by a Web-GIS map component.
+Requirements are organized by system module (Sections 2–3). The database design (Section 5) has been updated to store room ratings, customer favourites, and room dimensions, and reflects every entity referenced across all modules below.
+2. Functional and Non-Functional Requirements by Module
+Module 1: User Registration and Authentication
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow customers to create accounts.
+FR-2	The system shall allow authorized Super Admins and staff to create accommodation owner accounts; accommodation owners shall not self-register.
+FR-3	The system shall allow users to log in and log out securely.
+FR-4	The system shall provide password reset functionality.
+FR-5	The system shall verify required registration information.
+FR-6	The system shall assign roles and permissions.
+FR-7	The system shall prevent unauthorized access to restricted functions.
+FR-8	The system shall allow users to update their profiles.
+FR-9	The system shall support account activation, suspension, and deactivation.
+FR-10	The system shall maintain authentication and account activity records.
+FR-11	The system shall allow authorized administrators to reset user passwords.
+FR-12	The system shall ensure accommodation owner accounts are created only by authorized Super Admins or staff; owners shall not create accounts for themselves.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Security	Passwords and authentication credentials shall be protected.
+NFR-2	Availability	Authentication services should remain available except during planned maintenance.
+NFR-3	Performance	Login and authentication requests should be processed promptly.
+NFR-4	Maintainability	Authentication logic shall be separated from other modules.
+NFR-5	Reliability	Failed authentication attempts shall not corrupt user records.
+
+Module 2: Customer Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow customers to create and manage profiles.
+FR-2	The system shall allow customers to specify their university or college and campus.
+FR-3	The system shall allow customers to specify preferred location, room type, and price range.
+FR-4	The system shall allow customers to view available rooms.
+FR-5	The system shall allow customers to view accommodation images and videos.
+FR-6	The system shall allow customers to view house and room locations on a map.
+FR-7	The system shall allow customers to compare accommodations.
+FR-8	The system shall allow customers to save favourite accommodations.
+FR-9	The system shall allow customers to submit accommodation requests.
+FR-10	The system shall allow customers to track bookings, notifications, payments, and transaction history.
+FR-11	The system shall allow cancellation of requests according to defined rules.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Usability	Customer functions shall be simple and understandable.
+NFR-2	Performance	Accommodation searches shall return results efficiently.
+NFR-3	Security	Customers shall only access their own private account and transaction information.
+NFR-4	Reliability	Customer requests and booking status shall be stored consistently.
+NFR-5	Scalability	The module shall support large numbers of customers across the country.
+
+Module 3: Accommodation Owner Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow authorized Super Admins and staff to create and activate accommodation owner/provider accounts.
+FR-2	The system shall allow accommodation owners to view and update permitted profile information after their account is created by authorized Super Admins or staff.
+FR-3	The system shall allow owners to register multiple houses or properties.
+FR-4	The system shall allow owners to add rooms under each house.
+FR-5	The system shall allow owners to define room types, prices, capacity, facilities, and availability.
+FR-6	The system shall allow owners to upload room images and short videos.
+FR-7	The system shall allow owners to change room status.
+FR-8	The system shall notify owners when customers submit accommodation requests.
+FR-9	The system shall allow owners to confirm or reject requests.
+FR-10	The system shall provide owners with booking and transaction information.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Security	Owners shall only manage properties associated with their accounts.
+NFR-2	Usability	Property and room management forms shall be easy to operate.
+NFR-3	Performance	Media and property-management operations shall respond efficiently.
+NFR-4	Maintainability	Owner functions shall be modular and independently maintainable.
+NFR-5	Reliability	Updates to room availability shall be reflected consistently.
+
+Module 4: Country-Wide Location and Administrative Area
+Functional Requirements
+ID	Requirement
+FR-1	The system shall support multiple regions.
+FR-2	The system shall support multiple districts.
+FR-3	The system shall support wards or other administrative areas.
+FR-4	The system shall support streets or local areas.
+FR-5	The system shall support multiple universities and colleges.
+FR-6	The system shall support multiple campuses per institution.
+FR-7	The system shall associate properties with their geographical areas.
+FR-8	The system shall allow accommodation searches by geographical area.
+FR-9	The system shall allow authorized administrators to manage geographical information.
+FR-10	The system shall allow new areas, institutions, and campuses to be added without redesigning the core system.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Scalability	The location structure shall support country-wide expansion.
+NFR-2	Maintainability	Geographical data shall be centrally managed.
+NFR-3	Consistency	Geographical records shall use a defined hierarchy.
+NFR-4	Performance	Location filtering shall return results efficiently.
+NFR-5	Interoperability	The module shall support integration with GIS services.
+
+Module 5: University and Campus Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow administrators to register universities and colleges.
+FR-2	The system shall allow administrators to register individual campuses.
+FR-3	The system shall store campus geographical coordinates.
+FR-4	The system shall associate campuses with administrative areas.
+FR-5	The system shall allow customers to select their institution and campus.
+FR-6	The system shall display accommodations around a selected campus.
+FR-7	The system shall support distance-based accommodation searches.
+FR-8	The system shall support institutions with multiple campuses.
+FR-9	The system shall allow authorized administrators to update university and campus information.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Accuracy	Institution and campus information shall be kept consistent.
+NFR-2	Scalability	The module shall support many institutions and campuses.
+NFR-3	Usability	Administrators shall be able to manage institutions without technical database access.
+NFR-4	Performance	Campus-based accommodation searches shall be efficient.
+NFR-5	Maintainability	University data management shall be separated from booking logic.
+
+Module 6: Property and House Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall store property identification and owner information.
+FR-2	The system shall store property location and geographical coordinates.
+FR-3	The system shall store the number of rooms and available rooms.
+FR-4	The system shall store room types, rental prices, facilities, and security information.
+FR-5	The system shall store property images and videos.
+FR-6	The system shall store property verification and availability status.
+FR-7	The system shall allow one owner to manage multiple properties.
+FR-8	The system shall allow one property to contain multiple rooms.
+FR-9	The system shall allow authorized users to update property information.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Data integrity	Property and owner relationships shall remain consistent.
+NFR-2	Security	Only authorized users shall modify property records.
+NFR-3	Scalability	The module shall support large numbers of properties.
+NFR-4	Performance	Property records shall be retrieved efficiently.
+NFR-5	Maintainability	Property information shall be separated from individual room transactions.
+
+Module 7: Room Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow owners to create individual room records.
+FR-2	The system shall assign each room to a specific house/property.
+FR-3	The system shall store room type, price, capacity, facilities, and status.
+FR-4	The system shall allow room images and short videos to be uploaded.
+FR-5	The system shall allow owners to update room availability.
+FR-6	The system shall display current reservations.
+FR-7	The system shall prevent conflicting bookings for the same room.
+FR-8	The system shall support Available, Reserved, Occupied, Unavailable, and Pending Verification statuses.
+FR-9	The system shall store each room's physical dimensions (length, width, and area).
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Consistency	Room status shall remain synchronized with booking status.
+NFR-2	Concurrency	Simultaneous booking requests shall be handled without double booking.
+NFR-3	Performance	Room availability checks shall be fast.
+NFR-4	Security	Only authorized owners and administrators shall modify room records.
+NFR-5	Reliability	Room information shall not be lost during normal system operation.
+
+Module 8: GIS and Map Location
+Functional Requirements
+ID	Requirement
+FR-1	The system shall display accommodation properties on an interactive map.
+FR-2	The system shall display university and campus locations.
+FR-3	The system shall store geographical coordinates for houses/properties.
+FR-4	The system shall associate a property with its GIS location.
+FR-5	The system shall display available accommodations around a selected university.
+FR-6	The system shall support geographical and distance-based searches.
+FR-7	The system shall display house/property information when a map marker is selected.
+FR-8	The system shall link map markers to the corresponding property and room records.
+FR-9	The system shall support searches across different regions and cities.
+FR-10	The system shall allow authorized users to register or update property coordinates.
+FR-11	The system shall support map-based accommodation discovery.
+FR-12	The system shall maintain the relationship: Map Location → House → Room → Room Status.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Accuracy	Map coordinates shall correspond to the correct registered property.
+NFR-2	Performance	Map queries and markers shall load efficiently.
+NFR-3	Scalability	GIS functionality shall support properties across the country.
+NFR-4	Usability	Users shall be able to understand and navigate the map easily.
+NFR-5	Security	Only authorized users shall modify protected location records.
+NFR-6	Privacy	The platform shall apply appropriate controls to sensitive or restricted location information.
+NFR-7	Interoperability	The module shall integrate with the selected GIS/map service.
+
+Module 9: Accommodation Search and Filtering
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow search by university or college.
+FR-2	The system shall allow search by campus.
+FR-3	The system shall allow search by region, district, ward, and street/area.
+FR-4	The system shall allow search by distance from campus.
+FR-5	The system shall allow filtering by room type, price, availability, capacity, facilities, security information, and accommodation type.
+FR-6	The system shall display matching accommodations in list form.
+FR-7	The system shall display matching accommodations on a map.
+FR-8	The system shall allow customers to combine multiple search filters.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Performance	Search results shall be returned within an acceptable response time.
+NFR-2	Usability	Filters shall be clearly presented.
+NFR-3	Scalability	Searches shall remain usable as the number of properties increases.
+NFR-4	Accuracy	Results shall match the selected criteria.
+NFR-5	Availability	Search functionality should remain accessible except during planned maintenance.
+
+Module 10: Accommodation Details and Media
+Functional Requirements
+ID	Requirement
+FR-1	The system shall display house/property information.
+FR-2	The system shall display specific room information.
+FR-3	The system shall display room type, price, availability, facilities, and security information.
+FR-4	The system shall display images and short videos.
+FR-5	The system shall display map location and distance from campus.
+FR-6	The system shall display verification status.
+FR-7	The system shall provide a booking/request action for eligible rooms.
+FR-8	The system shall display the average rating and reviews submitted for a room.
+FR-9	The system shall allow a customer to mark or unmark a room as a favourite.
+FR-10	The system shall display each room's stored dimensions (length, width, and area).
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Performance	Images and videos should load efficiently.
+NFR-2	Usability	Accommodation details shall be clearly organized.
+NFR-3	Reliability	Displayed information shall correspond to the current property record.
+NFR-4	Security	Uploaded media shall be protected against unauthorized modification.
+NFR-5	Scalability	The media system shall support a growing number of property listings.
+
+Module 11: Accommodation Verification
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow owners to submit properties for verification.
+FR-2	The system shall store verification status.
+FR-3	The system shall allow authorized personnel to review submitted properties.
+FR-4	The system shall allow supporting documents/information to be associated with a property.
+FR-5	The system shall allow administrators to approve or reject listings.
+FR-6	The system shall maintain verification history.
+FR-7	The system shall prevent unverified properties from being presented as verified.
+FR-8	The system shall support re-verification when property information changes.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Security	Only authorized verification personnel shall approve or reject listings.
+NFR-2	Auditability	Verification decisions shall be recorded.
+NFR-3	Reliability	Verification status shall not be lost or inconsistently updated.
+NFR-4	Performance	Verification records shall be retrievable efficiently.
+NFR-5	Maintainability	Verification rules shall be configurable without changing unrelated modules.
+
+Module 12: Booking and Accommodation Request
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow customers to request a specific room.
+FR-2	The system shall record request date and time.
+FR-3	The system shall notify the accommodation owner.
+FR-4	The system shall allow the owner to confirm availability.
+FR-5	The system shall allow the owner to reject a request.
+FR-6	The system shall update room status after confirmation.
+FR-7	The system shall prevent conflicting bookings.
+FR-8	The system shall notify customers about booking results.
+FR-9	The system shall maintain booking history.
+FR-10	The system shall generate a booking/reference number.
+FR-11	The system shall allow customers to track request status.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Reliability	Booking transactions shall be stored accurately.
+NFR-2	Concurrency	The system shall prevent two confirmed bookings for the same room at the same time.
+NFR-3	Performance	Booking status updates shall be processed promptly.
+NFR-4	Security	Users shall only access bookings they are authorized to view.
+NFR-5	Auditability	Significant booking state changes shall be logged.
+
+Module 13: Payment and Service Fee
+Functional Requirements
+ID	Requirement
+FR-1	The system shall calculate accommodation rental charges.
+FR-2	The system shall calculate the applicable 10% service fee.
+FR-3	The system shall display the total amount before payment.
+FR-4	The system shall generate payment references.
+FR-5	The system shall record payment transactions.
+FR-6	The system shall update booking status after successful payment.
+FR-7	The system shall provide payment confirmation.
+FR-8	The system shall maintain customer payment history.
+FR-9	The system shall maintain owner transaction records.
+FR-10	The system shall provide administrators with transaction reports.
+FR-11	The system shall handle failed or incomplete payments.
+FR-12	The system shall maintain payment audit records.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Security	Payment and transaction data shall be protected.
+NFR-2	Integrity	Payment amounts and transaction states shall remain consistent.
+NFR-3	Reliability	Successful payments shall be recorded without data loss.
+NFR-4	Availability	Payment integration shall handle temporary external-service failures appropriately.
+NFR-5	Auditability	Payment events shall be traceable.
+NFR-6	Interoperability	The module shall support the selected payment gateway or gateways.
+
+Module 14: Notification and Communication
+Functional Requirements
+ID	Requirement
+FR-1	The system shall notify users when registration is completed.
+FR-2	The system shall notify owners when properties are submitted.
+FR-3	The system shall notify owners/customers about verification decisions.
+FR-4	The system shall notify owners when customers submit accommodation requests.
+FR-5	The system shall notify customers when owners confirm or reject requests.
+FR-6	The system shall notify users of successful or failed payments.
+FR-7	The system shall notify users when booking status changes.
+FR-8	The system shall support in-system notifications and may support email/SMS or other approved channels.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Reliability	Important notifications shall not be silently lost.
+NFR-2	Performance	Notifications shall be generated promptly after relevant events.
+NFR-3	Security	Notifications shall not expose sensitive information to unauthorized users.
+NFR-4	Scalability	Notification delivery shall support large user volumes.
+NFR-5	Maintainability	Additional notification channels should be addable without redesigning core modules.
+
+Module 15: Reviews and Feedback
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow eligible customers to submit accommodation feedback.
+FR-2	The system shall allow eligible customers to rate their accommodation experience.
+FR-3	The system shall allow comments.
+FR-4	The system shall allow users to report inaccurate accommodation information.
+FR-5	The system shall allow users to report problematic listings.
+FR-6	The system shall allow administrators to review reported content.
+FR-7	The system shall maintain moderation records.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Integrity	Only eligible users shall submit reviews for applicable accommodations.
+NFR-2	Security	Review and report data shall be protected against unauthorized alteration.
+NFR-3	Usability	Feedback forms shall be simple to complete.
+NFR-4	Moderation	Reported content shall be traceable to a moderation action.
+NFR-5	Performance	Reviews shall load efficiently on accommodation pages.
+
+Module 16: Administration
+Functional Requirements
+ID	Requirement
+FR-1	The system shall allow administrators to manage users and roles.
+FR-2	The system shall allow administrators to manage customers and accommodation owners.
+FR-3	The system shall allow administrators to manage universities and campuses.
+FR-4	The system shall allow administrators to manage geographical areas.
+FR-5	The system shall allow administrators to manage properties, houses, rooms, and listings.
+FR-6	The system shall allow administrators to manage GIS information.
+FR-7	The system shall allow administrators to manage verification.
+FR-8	The system shall allow administrators to monitor bookings and payments.
+FR-9	The system shall allow administrators to manage notifications, reports, complaints, and system settings.
+FR-10	The system shall enforce role-based administrative permissions.
+FR-11	The system shall allow administrators to manage staff departments and ranks.
+FR-12	The system shall allow administrators to configure the platform's visual theme (light or dark) for the admin panel and end-user interface.
+FR-13	The system shall allow administrators to manage staff branch/office assignments.
+FR-14	The system shall allow the Super Admin to assign or change roles and permissions for accommodation owners; by default, owners shall have access only to their permitted dashboard functions.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Security	Administrative functions shall be protected by role-based access control.
+NFR-2	Auditability	Administrative actions shall be logged.
+NFR-3	Availability	Core administrative services should remain available.
+NFR-4	Maintainability	Administration functions shall be modular.
+NFR-5	Usability	Dashboards shall present management information clearly.
+
+Module 17: Reporting and Analytics
+Functional Requirements
+ID	Requirement
+FR-1	The system shall generate reports on registered customers.
+FR-2	The system shall generate reports on accommodation owners.
+FR-3	The system shall generate property and room availability reports.
+FR-4	The system shall generate accommodation distribution reports by region.
+FR-5	The system shall generate accommodation distribution reports around universities.
+FR-6	The system shall generate booking, cancellation, and payment reports.
+FR-7	The system shall generate service-fee reports.
+FR-8	The system shall generate verification reports.
+FR-9	The system shall generate reported-property and platform-usage reports.
+FR-10	The system shall provide tabular and graphical reports where appropriate.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Performance	Reports shall be generated within an acceptable time.
+NFR-2	Accuracy	Reports shall reflect the underlying database records.
+NFR-3	Security	Financial and administrative reports shall be accessible only to authorized users.
+NFR-4	Scalability	Reporting shall support growing historical data.
+NFR-5	Usability	Reports shall be readable and understandable.
+
+Module 18: Security and Access Control
+Functional Requirements
+ID	Requirement
+FR-1	The system shall authenticate users.
+FR-2	The system shall authorize access according to roles.
+FR-3	The system shall securely hash passwords.
+FR-4	The system shall protect user sessions.
+FR-5	The system shall restrict administrative functions.
+FR-6	The system shall validate user input.
+FR-7	The system shall protect database access.
+FR-8	The system shall protect sensitive payment information.
+FR-9	The system shall maintain audit logs.
+FR-10	The system shall record suspicious activities where applicable.
+FR-11	The system shall support account suspension.
+FR-12	The system shall support secure communication using HTTPS.
+FR-13	The system shall apply access controls to GIS/property information.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Confidentiality	Sensitive information shall be accessible only to authorized users.
+NFR-2	Integrity	Unauthorized changes to system data shall be prevented or detected.
+NFR-3	Availability	Security controls shall not unnecessarily prevent legitimate access.
+NFR-4	Auditability	Security-relevant events shall be logged.
+NFR-5	Maintainability	Security controls shall be centrally managed where practical.
+
+Module 19: Database Management
+Functional Requirements
+ID	Requirement
+FR-1	The system shall centrally store user, customer, owner, university, campus, geographical, property, room, GIS, booking, payment, notification, review, complaint, verification, role, permission, and audit data.
+FR-2	The system shall maintain relationships between owners, houses, rooms, GIS locations, bookings, and payments.
+FR-3	The system shall enforce data validation and integrity constraints.
+FR-4	The system shall support backup and recovery operations.
+FR-5	The system shall support authorized data retrieval and reporting.
+FR-6	The system shall prevent unauthorized database modification.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Integrity	Relationships between entities shall remain consistent.
+NFR-2	Performance	Common queries shall be optimized for expected workloads.
+NFR-3	Security	Database credentials and sensitive records shall be protected.
+NFR-4	Scalability	The database shall accommodate country-wide growth.
+NFR-5	Recoverability	Backups shall support restoration after failure.
+
+Module 20: System Monitoring and Audit
+Functional Requirements
+ID	Requirement
+FR-1	The system shall record user logins.
+FR-2	The system shall record account changes.
+FR-3	The system shall record property registration and modification.
+FR-4	The system shall record verification actions.
+FR-5	The system shall record booking actions.
+FR-6	The system shall record payment events.
+FR-7	The system shall record administrative actions.
+FR-8	The system shall record user-role changes.
+FR-9	The system shall record reported incidents.
+FR-10	The system shall allow authorized personnel to review audit records.
+
+Non-Functional Requirements
+ID	Category	Requirement
+NFR-1	Reliability	Audit records shall be protected from accidental loss.
+NFR-2	Security	Audit records shall be accessible only to authorized personnel.
+NFR-3	Integrity	Audit records shall be tamper-resistant.
+NFR-4	Performance	Monitoring shall not significantly degrade normal system operation.
+NFR-5	Retention	Audit data shall be retained according to defined system and organizational policies.
+
+
+3. Summary of Country-Wide Requirements
+Area	Requirement
+Scalability	Support multiple regions, districts, universities, campuses, owners, houses, rooms, customers, bookings and transactions.
+GIS	Support map-based discovery and a relationship between location, house, room and room status.
+Security	Provide authentication, role-based access, secure sessions, protected payment information and audit logging.
+Performance	Provide efficient search, GIS queries, booking operations, media access and reporting.
+Maintainability	Use modular architecture, high cohesion, low coupling and clean code.
+Reliability	Maintain accurate room availability, booking, payment and verification information.
+Interoperability	Support integration with GIS, payment and notification services.
+Backup and Recovery	Provide regular database backup and restoration capability.
+
+
+
+
+4. Database Design
+Database name: getto_db      Database user: getto   database password: getto1234   ( grant full privellage)
+All tables include a surrogate primary key (id, BIGINT AUTO_INCREMENT) unless stated otherwise. Record-owning tables include created_at / updated_at timestamps for audit purposes.
+
+
+
+
+
+
+
+
+
+4.1 Geography and Institutions
+regions
+Top-level administrative regions.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(100)	NOT NULL, UNIQUE	Region name
+
+districts
+Districts within a region.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+region_id	BIGINT	FK → regions.id	Parent region
+name	VARCHAR(100)	NOT NULL	District name
+
+wards
+Wards within a district.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+district_id	BIGINT	FK → districts.id	Parent district
+name	VARCHAR(100)	NOT NULL	Ward name
+
+streets
+Streets or local areas within a ward.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+ward_id	BIGINT	FK → wards.id	Parent ward
+name	VARCHAR(100)	NOT NULL	Street / area name
+
+universities
+Universities and colleges.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(150)	NOT NULL	Institution name
+district_id	BIGINT	FK → districts.id, NULLABLE	General location
+
+campuses
+Individual campuses of an institution.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+university_id	BIGINT	FK → universities.id	Parent institution
+name	VARCHAR(150)	NOT NULL	Campus name
+ward_id	BIGINT	FK → wards.id, NULLABLE	Administrative area
+latitude	DECIMAL(10,7)	NOT NULL	Campus latitude
+longitude	DECIMAL(10,7)	NOT NULL	Campus longitude
+
+4.2 Access Control
+roles
+System roles (e.g. Super Admin, Staff).
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(100)	NOT NULL, UNIQUE	Role name
+description	VARCHAR(255)	NULLABLE	Role description
+
+permissions
+Discrete actions that can be granted to a role.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(100)	NOT NULL, UNIQUE	Permission code/name
+description	VARCHAR(255)	NULLABLE	Permission description
+
+role_permissions
+Pivot mapping roles to permissions (many-to-many).
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+role_id	BIGINT	FK → roles.id	Associated role
+permission_id	BIGINT	FK → permissions.id	Associated permission
+
+departments
+Staff departments.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(100)	NOT NULL	Department name
+hod_id	BIGINT	FK → staff.id, NULLABLE	Head of Department
+
+ranks
+Staff rank/grade lookup.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+name	VARCHAR(100)	NOT NULL	Rank title
+description	VARCHAR(255)	NULLABLE	Rank description
+
+4.3 Platform Users
+staff
+Super Admin and staff (panel) users.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+firstname	VARCHAR(100)	NOT NULL	First name
+lastname	VARCHAR(100)	NOT NULL	Last name
+photo	VARCHAR(255)	NULLABLE	Profile photo path
+phone	VARCHAR(20)	NOT NULL, UNIQUE	Phone number
+email	VARCHAR(150)	NOT NULL, UNIQUE	Email address
+password	VARCHAR(255)	NOT NULL	Hashed password
+branch	VARCHAR(100)	NOT NULL	Branch/regional office
+role_id	BIGINT	FK → roles.id	Assigned role
+department_id	BIGINT	FK → departments.id, NULLABLE	Assigned department
+rank_id	BIGINT	FK → ranks.id, NULLABLE	Assigned rank
+status	ENUM('active','suspended','deactivated')	NOT NULL, DEFAULT 'active'	Account status
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+accommodation_owners
+Owners of registered properties.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+firstname	VARCHAR(100)	NOT NULL	First name
+lastname	VARCHAR(100)	NOT NULL	Last name
+photo	VARCHAR(255)	NULLABLE	Profile photo path
+phone	VARCHAR(20)	NOT NULL, UNIQUE	Phone number
+email	VARCHAR(150)	NOT NULL, UNIQUE	Email address
+status	ENUM('active','suspended','deactivated')	NOT NULL, DEFAULT 'active'	Account status
+status	ENUM('active','suspended','deactivated')	NOT NULL, DEFAULT 'active'	Account status
+password	VARCHAR(255)	NOT NULL	Hashed password
+created_by_staff_id	BIGINT FK → staff.id, NULLABLE	Authorized staff member who created the owner account	Owner's residential address
+status	ENUM('active','suspended','deactivated')	NOT NULL, DEFAULT 'active'	Account status
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+customers
+End users who search for and book accommodation.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+firstname	VARCHAR(100)	NOT NULL	First name
+lastname	VARCHAR(100)	NOT NULL	Last name
+photo	VARCHAR(255)	NULLABLE	Profile photo path
+phone	VARCHAR(20)	NOT NULL, UNIQUE	Phone number
+email	VARCHAR(150)	NOT NULL, UNIQUE	Email address
+password	VARCHAR(255)	NOT NULL	Hashed password
+university_id	BIGINT	FK → universities.id	Customer's institution
+campus_id	BIGINT	FK → campuses.id, NULLABLE	Customer's campus
+admission_info	VARCHAR(255)	NULLABLE	Admission/registration reference
+status	ENUM('active','suspended','deactivated')	NOT NULL, DEFAULT 'active'	Account status
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+customer_preferences
+A customer's saved search preferences.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+customer_id	BIGINT	FK → customers.id, UNIQUE	Owning customer
+region_id	BIGINT	FK → regions.id, NULLABLE	Preferred region
+district_id	BIGINT	FK → districts.id, NULLABLE	Preferred district
+ward_id	BIGINT	FK → wards.id, NULLABLE	Preferred ward
+preferred_room_type	VARCHAR(50)	NULLABLE	Preferred room type
+min_price	DECIMAL(12,2)	NULLABLE	Minimum price range
+max_price	DECIMAL(12,2)	NULLABLE	Maximum price range
+
+password_resets
+Password reset tokens for all user types.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+user_type	ENUM('customer','owner','staff')	NOT NULL	Type of account
+user_id	BIGINT	NOT NULL	ID of the account (in its own table)
+token	VARCHAR(100)	NOT NULL	Reset token
+expires_at	TIMESTAMP	NOT NULL	Token expiry time
+created_at	TIMESTAMP		Record creation time
+
+4.4 Properties and Rooms
+properties
+Houses/properties registered by owners.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+owner_id	BIGINT	FK → accommodation_owners.id	Property owner
+name	VARCHAR(150)	NOT NULL	Property name
+description	TEXT	NULLABLE	Property description
+street_id	BIGINT	FK → streets.id	Property location
+latitude	DECIMAL(10,7)	NOT NULL	GIS latitude
+longitude	DECIMAL(10,7)	NOT NULL	GIS longitude
+total_rooms	INT	NOT NULL, DEFAULT 0	Total number of rooms
+available_rooms	INT	NOT NULL, DEFAULT 0	Currently available rooms
+verification_status	ENUM('pending','verified','rejected')	NOT NULL, DEFAULT 'pending'	Verification state
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+property_media
+Photos and videos of a property.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+property_id	BIGINT	FK → properties.id	Associated property
+type	ENUM('image','video')	NOT NULL	Media type
+file_path	VARCHAR(255)	NOT NULL	Stored file path
+created_at	TIMESTAMP		Upload time
+
+rooms
+Individual rooms within a property.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+property_id	BIGINT	FK → properties.id	Parent property
+room_type	VARCHAR(100)	NOT NULL	e.g. single, shared, self-contained
+price	DECIMAL(12,2)	NOT NULL	Rental price
+capacity	INT	NOT NULL	Maximum occupants
+length_m	DECIMAL(5,2)	NULLABLE	Room length (metres)
+width_m	DECIMAL(5,2)	NULLABLE	Room width (metres)
+area_sqm	DECIMAL(6,2)	NULLABLE	Room area (square metres)
+facilities	TEXT	NULLABLE	Facilities, comma or JSON list
+security_info	TEXT	NULLABLE	Security features
+status	ENUM('available','reserved','occupied','unavailable','pending_verification')	NOT NULL, DEFAULT 'pending_verification'	Current room status
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+room_media
+Photos (max 5) and short video (max 1) of a room; limits enforced at application level.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+room_id	BIGINT	FK → rooms.id	Associated room
+type	ENUM('image','video')	NOT NULL	Media type
+file_path	VARCHAR(255)	NOT NULL	Stored file path
+created_at	TIMESTAMP		Upload time
+
+4.5 Engagement — Ratings, Favourites and Reports
+Added per request: dedicated storage for room ratings, customer favourites, and room dimensions (see rooms table above).
+favourites
+Rooms a customer has marked as favourite.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+customer_id	BIGINT	FK → customers.id	Customer
+room_id	BIGINT	FK → rooms.id	Favourited room
+created_at	TIMESTAMP		Time favourited
+
+reviews
+Customer ratings and comments for a room.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+customer_id	BIGINT	FK → customers.id	Reviewing customer
+room_id	BIGINT	FK → rooms.id	Reviewed room
+rating	TINYINT	NOT NULL, 1–5	Star rating
+comment	TEXT	NULLABLE	Review comment
+status	ENUM('visible','flagged','removed')	NOT NULL, DEFAULT 'visible'	Moderation state
+created_at	TIMESTAMP		Time submitted
+
+reports
+Reports of inaccurate or problematic listings/reviews.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+reporter_customer_id	BIGINT	FK → customers.id	Reporting customer
+room_id	BIGINT	FK → rooms.id, NULLABLE	Reported room
+review_id	BIGINT	FK → reviews.id, NULLABLE	Reported review, if applicable
+type	ENUM('inaccurate_info','problematic_listing','other')	NOT NULL	Report category
+reason	VARCHAR(255)	NOT NULL	Reason given
+status	ENUM('pending','reviewed','dismissed')	NOT NULL, DEFAULT 'pending'	Moderation status
+reviewed_by_staff_id	BIGINT	FK → staff.id, NULLABLE	Staff who moderated it
+created_at	TIMESTAMP		Time reported
+
+
+
+
+
+
+
+
+
+
+
+
+4.6 Verification
+verifications
+Property verification submissions and decisions.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+property_id	BIGINT	FK → properties.id	Property under review
+status	ENUM('pending','approved','rejected')	NOT NULL, DEFAULT 'pending'	Verification outcome
+submitted_at	TIMESTAMP	NOT NULL	Submission time
+reviewed_by_staff_id	BIGINT	FK → staff.id, NULLABLE	Reviewer
+reviewed_at	TIMESTAMP	NULLABLE	Review time
+remarks	VARCHAR(255)	NULLABLE	Reviewer remarks
+
+verification_documents
+Supporting documents for a verification submission.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+verification_id	BIGINT	FK → verifications.id	Associated verification
+file_path	VARCHAR(255)	NOT NULL	Stored document path
+description	VARCHAR(255)	NULLABLE	Document description
+
+4.7 Booking and Payment
+bookings
+Accommodation requests made by customers.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+customer_id	BIGINT	FK → customers.id	Requesting customer
+room_id	BIGINT	FK → rooms.id	Requested room
+reference_no	VARCHAR(50)	NOT NULL, UNIQUE	Booking reference number
+request_date	TIMESTAMP	NOT NULL	Time of request
+status	ENUM('pending','confirmed','rejected','cancelled')	NOT NULL, DEFAULT 'pending'	Booking status
+confirmed_at	TIMESTAMP	NULLABLE	Confirmation time
+cancelled_at	TIMESTAMP	NULLABLE	Cancellation time
+created_at	TIMESTAMP		Record creation time
+updated_at	TIMESTAMP		Last update time
+
+payments
+Payments made against a booking, including the platform service fee.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+booking_id	BIGINT	FK → bookings.id	Associated booking
+customer_id	BIGINT	FK → customers.id	Paying customer
+rental_amount	DECIMAL(12,2)	NOT NULL	Accommodation rental charge
+service_fee	DECIMAL(12,2)	NOT NULL	Platform service fee (10%)
+total_amount	DECIMAL(12,2)	NOT NULL	Rental amount + service fee
+payment_reference	VARCHAR(100)	NOT NULL, UNIQUE	External/internal payment reference
+payment_method	VARCHAR(50)	NOT NULL	e.g. mobile money, card, bank
+status	ENUM('pending','completed','failed')	NOT NULL, DEFAULT 'pending'	Payment status
+paid_at	TIMESTAMP	NULLABLE	Time payment completed
+
+receipts
+Receipts issued for completed payments.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+payment_id	BIGINT	FK → payments.id	Associated payment
+receipt_number	VARCHAR(50)	NOT NULL, UNIQUE	Receipt number
+issued_at	TIMESTAMP	NOT NULL	Time issued
+
+4.8 Notifications and System
+notifications
+In-system, email and SMS notifications.
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+recipient_type	ENUM('customer','owner','staff')	NOT NULL	Recipient account type
+recipient_id	BIGINT	NOT NULL	Recipient ID (in its own table)
+title	VARCHAR(150)	NOT NULL	Notification title
+message	TEXT	NOT NULL	Notification body
+channel	ENUM('in_system','email','sms')	NOT NULL, DEFAULT 'in_system'	Delivery channel
+is_read	BOOLEAN	NOT NULL, DEFAULT FALSE	Read status
+created_at	TIMESTAMP		Time generated
+
+system_settings
+Global, editable platform configuration (single-row table).
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+company_name	VARCHAR(150)	NOT NULL	Platform/company name
+logo	VARCHAR(255)	NULLABLE	Logo file path
+slogan	VARCHAR(255)	NULLABLE	Platform slogan
+ads	VARCHAR(255)	NULLABLE	Advertisement banner path
+address	VARCHAR(255)	NULLABLE	Company address
+location	VARCHAR(150)	NULLABLE	Company location
+service_fee_percentage	DECIMAL(5,2)	NOT NULL, DEFAULT 10.00	Platform service fee rate
+panel_theme	ENUM('light','dark')	NOT NULL, DEFAULT 'light'	Admin panel theme
+enduser_theme	ENUM('light','dark')	NOT NULL, DEFAULT 'light'	End-user interface theme
+
+audit_logs ( also include lastname and phone number for the specific actor)
+System-wide audit trail (logins, account, property, verification, booking, payment and admin actions).
+Field	Type	Key / Constraint	Description
+id	BIGINT	PK	Unique identifier
+actor_type	ENUM('customer','owner','staff','system')	NOT NULL	Type of actor
+actor_id	BIGINT	NULLABLE	Actor ID (in its own table)
+action	VARCHAR(150)	NOT NULL	Action performed
+description	VARCHAR(255)	NULLABLE	Additional detail
+ip_address	VARCHAR(45)	NULLABLE	Origin IP address
+created_at	TIMESTAMP	NOT NULL	Time of action
+
+
+
+
+
+
+
+4.9 Design Notes
+•	Distance from campus is calculated at query time from stored latitude/longitude coordinates (Haversine formula); no separate distance table is stored, avoiding stale or oversized pre-computed data.
+•	Room photos are limited to 5 and video to 1 per room; this limit is enforced at the application level, not the database schema.
+•	Ratings, favourites and room dimensions — previously missing — are now covered by the reviews, favourites and rooms tables respectively.
+•	Geography is normalized as regions → districts → wards → streets so new areas can be added without redesigning the schema, per the country-wide scalability requirement.
+•	audit_logs consolidates the security-audit trail (Module 18) and system-monitoring log (Module 20) into a single table to avoid duplicate logging structures.
+
+
+
+
+
+GHETTO PLATFORM FEATURES
+
+1. Customer Registration
+Customers can create personal accounts using their basic information such as name, phone number,
+email, university, and customer ID. The account allows the platform to identify and manage each
+customer's activities securely. Customers can later update their profile information when necessary.
+Phone or email verification can be used to improve account security. This feature provides a
+personalized starting point for finding and booking accommodation.
+
+2. University Selection
+Customers select the university they are attending or planning to attend. The system then uses the
+selected university as the main reference point for accommodation searches. This allows customers
+to see available rooms specifically around their campus. Universities can be added or managed
+by administrators. The feature makes searching faster and more relevant.
+
+3. Accommodation Search
+Customers can search for accommodation based on price, room type, distance, facilities, and
+availability. Search filters allow customers to reduce hundreds of properties to those that match
+their needs. Results can be sorted by distance, price, rating, or availability. The system displays
+important information before the customer contacts or books a property. This reduces the time and
+effort required to find suitable accommodation.
+
+4. Map-Based Accommodation Discovery
+The platform displays accommodation locations on an interactive digital map. Customers can
+visually identify properties near their university and understand their geographical position. Each
+map marker can display basic information such as room type, price, and availability. Customers
+can select a marker to open the full accommodation details. This feature helps customers
+understand where they would actually be living before making a decision.
+
+5. Accommodation Details
+Each accommodation has a dedicated page containing its price, location, room type, facilities,
+availability, and description. Customers can review the information before deciding whether to
+book. The page can also display the distance from the selected university. Important information
+is organized in one place instead of requiring customers to contact several brokers. This improves
+transparency during the accommodation-search process.
+
+6. Photos and Short Videos
+Accommodation owners can upload photos showing rooms, bathrooms, kitchens, compounds,
+and other important areas. They can also upload short videos to provide a more realistic view of
+the property. Customers can inspect the accommodation remotely before deciding to visit it. Media
+uploads should be reviewed according to the platform's verification rules. This feature helps
+reduce misleading descriptions and unnecessary physical visits.
+
+7. Distance Calculation
+The system automatically calculates the distance between an accommodation and the customer's
+university. It can display information such as "850 meters from campus" or an estimated walking
+distance. Customers can use this information when comparing different properties. The calculation
+can be supported by geographical coordinates stored for universities and properties. This makes
+location one of the measurable factors in accommodation selection.
+
+8. Owner Dashboard
+Accommodation owners receive a dedicated dashboard for managing their properties after their accounts have been created and activated by authorized Super Admins or staff. They can
+add properties, update room availability, upload media, and manage booking requests. The
+dashboard can also show information about active rooms, bookings, and payments. Owners
+cannot perform administrative actions reserved for the platform administrators. This provides
+owners with a centralized way to manage their accommodation business.
+9. Add Accommodation
+Owners can submit information about their accommodation through a structured form. They
+provide details such as property name, location, room type, price, facilities, security information,
+and available rooms. The system allows them to select the property's location using a map.
+Photos and videos can also be attached to the property. After submission, the property enters the
+administrative verification process before becoming publicly available.
+
+10. Accommodation Verification
+Every submitted accommodation can pass through an administrative verification process before
+appearing publicly. Administrators can review the owner's information, property details,
+location, images, and other required evidence. Properties can be marked as pending, approved,
+rejected, or suspended. Approved properties can display a verification indicator to customers. This
+creates a structured trust mechanism between customers, owners, and the platform.
+
+11. Booking System
+Customers can request a room directly through the platform instead of relying entirely on brokers.
+The system records the selected accommodation, room, customer, price, and booking status. The
+owner receives the request and confirms whether the requested room is actually available. After
+confirmation, the customer proceeds to the payment stage. This creates a clear digital record of the
+accommodation booking process.
+
+12. Payment System
+After an owner confirms the accommodation, the customer can pay the required rent and service
+fee through the platform. The system calculates the total amount automatically, including the
+defined 10% service fee. Every transaction receives a unique reference and payment status.
+Payment information is stored securely and linked to the corresponding booking. The
+architecture should allow different Tanzanian payment providers to be integrated without
+changing the entire booking system.
+
+13. Notifications
+The platform sends notifications when important actions occur. Customers can receive
+notifications about booking confirmations, payment results, cancellations, and other important
+updates. Owners can receive notifications about new booking requests and successful payments.
+Notifications can eventually be delivered through in-app alerts, email, SMS, or other supported
+channels. This keeps both parties informed without requiring them to constantly check the
+platform.
+
+14. Reviews and Ratings
+Customers who have completed verified bookings can review their accommodation experience.
+They can provide feedback about factors such as cleanliness, security, location, owner behavior,
+and value. Reviews are connected to actual bookings to reduce fake feedback. Owners can use
+genuine feedback to identify areas that need improvement. Customers can use previous
+experiences as additional information when comparing accommodations.
+
+15. Favorites
+Customers can save accommodations they are interested in for later consideration. Saved
+properties appear in a personal favorites section. Customers can return to these properties without
+repeating their original search. This is useful when a customer wants to compare several
+accommodation options. The feature makes the decision-making process more convenient.
+
+16. Accommodation Comparison
+Customers can select multiple properties and compare their important characteristics in one view.
+The comparison can include price, distance, room type, facilities, security features, availability,
+and ratings. This prevents customers from repeatedly switching between different accommodation
+pages. The information is presented side by side for easier understanding. The final
+accommodation choice remains with the customer.
+
+17. Complaints and Disputes
+Customers can report problems such as incorrect property information, unavailable rooms,
+payment issues, or other accommodation-related concerns. Each complaint receives a record that
+administrators can investigate. Administrators can communicate with the relevant customer and
+owner during the investigation. The system can track the complaint from submission to
+resolution. This creates an accountability mechanism for platform users.
+
+18. Admin Dashboard
+Administrators manage the major operations of the Ghetto platform from one centralized
+dashboard. They can manage users, universities, properties, rooms, bookings, payments, reviews,
+complaints, and verification requests. The dashboard can display statistics about platform
+activity. Administrative permissions should be controlled according to user roles. This allows the
+platform to operate under centralized governance while maintaining proper access control.
+
+
+
+
+*********************************THE END*********************************

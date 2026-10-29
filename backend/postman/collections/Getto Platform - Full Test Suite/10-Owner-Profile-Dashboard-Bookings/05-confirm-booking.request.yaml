@@ -1,0 +1,19 @@
+$kind: http-request
+name: 'Confirm Owner Booking'
+order: 5000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/owners/me/bookings/{{booking_id}}/confirm/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      if (pm.environment.get("booking_status") !== "pending") pm.execution.skipRequest();
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner confirms pending booking", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.expect(body.status).to.eql("confirmed");

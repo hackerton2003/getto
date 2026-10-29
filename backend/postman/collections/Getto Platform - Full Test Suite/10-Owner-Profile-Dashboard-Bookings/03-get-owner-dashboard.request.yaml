@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'Get Owner Dashboard'
+order: 3000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/owners/me/dashboard/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner dashboard returns 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test("Dashboard includes summary and reviews", () => {
+        pm.expect(body).to.have.property("summary");
+        pm.expect(body).to.have.property("reviews");
+        pm.expect(body).to.have.property("bookings");
+        pm.expect(body).to.have.property("revenue");
+      });

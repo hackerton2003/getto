@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'Staff - List Open Reports'
+order: 2000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/staff/reports/?status=open'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Staff reports return 200", () => pm.response.to.have.status(200));

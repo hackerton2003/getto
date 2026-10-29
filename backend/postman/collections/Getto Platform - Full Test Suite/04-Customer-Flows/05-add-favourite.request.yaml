@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'Add Favourite Property'
+order: 5000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/customers/me/favourites/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "property_id": {{verified_property_id}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Add favourite returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      const json = pm.response.json();
+      if (json.property_id || json.property) {
+        pm.environment.set("favourite_property_id", json.property_id || json.property);
+      }

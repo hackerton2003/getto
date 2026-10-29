@@ -1,0 +1,25 @@
+$kind: http-request
+name: 'Owner - Update Property'
+order: 4000
+method: PATCH
+url: '{{base_url}}/{{api_prefix}}/owners/me/properties/{{property_id}}/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+body:
+  type: json
+  content: |-
+    { "description": "Updated from the Postman API collection." }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner property update returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Property id matches", function () {
+        const json = pm.response.json();
+        pm.expect(String(json.id)).to.eql(String(pm.environment.get("property_id")));
+      });

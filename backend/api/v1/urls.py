@@ -1,0 +1,145 @@
+from django.urls import path
+from rest_framework.routers import DefaultRouter
+
+from api.v1.views import (
+    AuditLogViewSet,
+    BookingCancelView,
+    BookingDecisionView,
+    BookingDetailView,
+    BookingListCreateView,
+    OwnerBookingDecisionView,
+    OwnerBookingListView,
+    CampusViewSet,
+    CustomerPreferencesView,
+    CustomerProfileView,
+    CustomerRegistrationView,
+    DepartmentViewSet,
+    DistrictViewSet,
+    FavouriteDetailView,
+    FavouriteListCreateView,
+    LoginView,
+    LogoutView,
+    NotificationListView,
+    NotificationReadView,
+    OwnerDashboardView,
+    OwnerProfileView,
+    OwnerPropertyDetailView,
+    OwnerPropertyListView,
+    OwnerPropertyMediaDetailView,
+    OwnerPropertyMediaView,
+    OwnerRegistrationView,
+    OwnerRoomCreateView,
+    OwnerRoomMediaDetailView,
+    OwnerRoomMediaView,
+    OwnerVerificationDocumentsView,
+    OwnerVerificationListView,
+    OwnerVerificationSubmitView,
+    PasswordResetConfirmView,
+    PasswordResetRequestView,
+    PaymentDetailView,
+    PaymentListCreateView,
+    PermissionViewSet,
+    PropertyMediaViewSet,
+    PropertyViewSet,
+    RankViewSet,
+    ReceiptListView,
+    RegionViewSet,
+    ReportCreateView,
+    ReviewDetailView,
+    ReviewListCreateView,
+    RoleViewSet,
+    RoomMediaViewSet,
+    RoomViewSet,
+    StaffSelfView,
+    StaffBookingExpireStaleView,
+    StaffManagementView,
+    StaffRoleAssignmentView,
+    StaffStatusUpdateView,
+    StaffReportManagementView,
+    StaffReviewModerationView,
+    StaffVerificationReviewView,
+    StreetViewSet,
+    SystemSettingsView,
+    TokenRefreshView,
+    UniversityViewSet,
+    VerificationDocumentViewSet,
+    VerificationDocumentDownloadView,
+    VerificationViewSet,
+    VisitorLogViewSet,
+    WardViewSet,
+    WebhookSubscriptionListCreateView,
+)
+
+router = DefaultRouter()
+router.register("locations/regions", RegionViewSet, basename="region")
+router.register("locations/districts", DistrictViewSet, basename="district")
+router.register("locations/wards", WardViewSet, basename="ward")
+router.register("locations/streets", StreetViewSet, basename="street")
+router.register("universities", UniversityViewSet, basename="university")
+router.register("campuses", CampusViewSet, basename="campus")
+router.register("properties/media", PropertyMediaViewSet, basename="property-media")
+router.register("properties", PropertyViewSet, basename="property")
+router.register("rooms/media", RoomMediaViewSet, basename="room-media")
+router.register("rooms", RoomViewSet, basename="room")
+router.register("staff/roles", RoleViewSet, basename="role")
+router.register("staff/permissions", PermissionViewSet, basename="permission")
+router.register("staff/ranks", RankViewSet, basename="rank")
+router.register("staff/departments", DepartmentViewSet, basename="department")
+router.register("staff/verifications", VerificationViewSet, basename="verification")
+router.register("staff/verification-documents", VerificationDocumentViewSet, basename="verification-document")
+router.register("system/audit-logs", AuditLogViewSet, basename="audit-log")
+router.register("system/visitor-logs", VisitorLogViewSet, basename="visitor-log")
+
+urlpatterns = [
+    path("auth/login/", LoginView.as_view(), name="api-login"),
+    path("auth/refresh/", TokenRefreshView.as_view(), name="api-token-refresh"),
+    path("auth/logout/", LogoutView.as_view(), name="api-logout"),
+    path("auth/register/customer/", CustomerRegistrationView.as_view(), name="customer-register"),
+    path("auth/register/owner/", OwnerRegistrationView.as_view(), name="owner-register"),
+    path("auth/password-reset/", PasswordResetRequestView.as_view(), name="password-reset-request"),
+    path("auth/password-reset/confirm/", PasswordResetConfirmView.as_view(), name="password-reset-confirm"),
+    path("customers/me/", CustomerProfileView.as_view(), name="customer-profile"),
+    path("customers/me/preferences/", CustomerPreferencesView.as_view(), name="customer-preferences"),
+    path("customers/me/favourites/", FavouriteListCreateView.as_view(), name="customer-favourites"),
+    path("customers/me/favourites/<int:property_id>/", FavouriteDetailView.as_view(), name="customer-favourite-detail"),
+    path("reviews/", ReviewListCreateView.as_view(), name="reviews"),
+    path("reviews/<int:review_id>/", ReviewDetailView.as_view(), name="review-detail"),
+    path("reports/", ReportCreateView.as_view(), name="property-reports"),
+    path("owners/me/", OwnerProfileView.as_view(), name="owner-profile"),
+    path("owners/me/dashboard/", OwnerDashboardView.as_view(), name="owner-dashboard"),
+    path("owners/me/bookings/", OwnerBookingListView.as_view(), name="owner-bookings"),
+    path("owners/me/bookings/<int:booking_id>/<str:decision>/", OwnerBookingDecisionView.as_view(), name="owner-booking-decision"),
+    path("owners/me/properties/", OwnerPropertyListView.as_view(), name="owner-properties"),
+    path("owners/me/properties/<int:property_id>/", OwnerPropertyDetailView.as_view(), name="owner-property-detail"),
+    path("owners/me/properties/<int:property_id>/media/", OwnerPropertyMediaView.as_view(), name="owner-property-media"),
+    path("owners/me/properties/<int:property_id>/media/<int:media_id>/", OwnerPropertyMediaDetailView.as_view(), name="owner-property-media-detail"),
+    path("owners/me/properties/<int:property_id>/rooms/", OwnerRoomCreateView.as_view(), name="owner-property-rooms"),
+    path("owners/me/rooms/<int:room_id>/media/", OwnerRoomMediaView.as_view(), name="owner-room-media"),
+    path("owners/me/rooms/<int:room_id>/media/<int:media_id>/", OwnerRoomMediaDetailView.as_view(), name="owner-room-media-detail"),
+    path("owners/me/verifications/", OwnerVerificationListView.as_view(), name="owner-verifications"),
+    path("owners/me/properties/<int:property_id>/verifications/", OwnerVerificationSubmitView.as_view(), name="owner-verification-submit"),
+    path("owners/me/verifications/<int:verification_id>/documents/", OwnerVerificationDocumentsView.as_view(), name="owner-verification-documents"),
+    path("verifications/documents/<int:document_id>/download/", VerificationDocumentDownloadView.as_view(), name="verification-document-download"),
+    path("staff/verifications/<int:verification_id>/approve/", StaffVerificationReviewView.as_view(), {"decision": "approve"}, name="staff-verification-approve"),
+    path("staff/verifications/<int:verification_id>/reject/", StaffVerificationReviewView.as_view(), {"decision": "reject"}, name="staff-verification-reject"),
+    path("staff/reports/", StaffReportManagementView.as_view(), name="staff-reports"),
+    path("staff/reports/<int:report_id>/", StaffReportManagementView.as_view(), name="staff-report-detail"),
+    path("staff/reviews/", StaffReviewModerationView.as_view(), name="staff-reviews"),
+    path("staff/reviews/<int:review_id>/", StaffReviewModerationView.as_view(), name="staff-review-detail"),
+    path("bookings/", BookingListCreateView.as_view(), name="booking-create"),
+    path("bookings/<int:booking_id>/", BookingDetailView.as_view(), name="booking-detail"),
+    path("bookings/<int:booking_id>/cancel/", BookingCancelView.as_view(), name="booking-cancel"),
+    path("bookings/<int:booking_id>/<str:decision>/", BookingDecisionView.as_view(), name="booking-decision"),
+    path("staff/bookings/expire-stale/", StaffBookingExpireStaleView.as_view(), name="staff-booking-expire-stale"),
+    path("payments/", PaymentListCreateView.as_view(), name="payment-list-create"),
+    path("payments/<int:payment_id>/", PaymentDetailView.as_view(), name="payment-detail"),
+    path("receipts/", ReceiptListView.as_view(), name="receipt-list"),
+    path("notifications/", NotificationListView.as_view(), name="notification-list"),
+    path("notifications/<int:notification_id>/read/", NotificationReadView.as_view(), name="notification-read"),
+    path("webhooks/", WebhookSubscriptionListCreateView.as_view(), name="webhook-subscriptions"),
+    path("staff/me/", StaffSelfView.as_view(), name="staff-profile"),
+    path("staff/accounts/", StaffManagementView.as_view(), name="staff-accounts"),
+    path("staff/accounts/<int:staff_id>/role/", StaffRoleAssignmentView.as_view(), name="staff-role-assignment"),
+    path("staff/accounts/<int:staff_id>/status/", StaffStatusUpdateView.as_view(), name="staff-status-update"),
+    path("system/settings/", SystemSettingsView.as_view(), name="system-settings"),
+] + router.urls

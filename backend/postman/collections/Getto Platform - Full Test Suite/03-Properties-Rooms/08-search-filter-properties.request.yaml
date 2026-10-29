@@ -1,0 +1,12 @@
+$kind: http-request
+name: 'Search And Filter Properties'
+order: 8000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/properties/?search={{search_term}}&min_price={{min_price}}&max_price={{max_price}}&room_type={{room_type}}&available_only=true&university_id={{university_id}}&latitude={{campus_latitude}}&longitude={{campus_longitude}}&max_distance_km=25&ordering=name'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Filtered property search returns 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      pm.test("Property results use paginated response", () => pm.expect(body).to.have.property("results"));

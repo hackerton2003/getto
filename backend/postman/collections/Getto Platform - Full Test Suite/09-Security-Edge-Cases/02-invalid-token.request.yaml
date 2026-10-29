@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Invalid Token - Access Profile (should fail)'
+order: 2000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/customers/me/'
+headers:
+  - key: Authorization
+    value: 'Bearer invalid.token.here'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Invalid token returns 401", function () {
+        pm.response.to.have.status(401);
+      });

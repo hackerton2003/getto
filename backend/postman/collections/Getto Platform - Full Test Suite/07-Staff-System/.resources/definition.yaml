@@ -1,0 +1,8 @@
+$kind: collection
+name: '07 - Staff & System'
+description: 'Staff management, roles, permissions, ranks, departments, audit logs, visitor logs, system settings.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{staff_access_token}}'

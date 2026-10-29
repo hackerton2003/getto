@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'List Receipts'
+order: 6000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/receipts/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List receipts returns 200", function () {
+        pm.response.to.have.status(200);
+      });

@@ -1,0 +1,29 @@
+$kind: http-request
+name: 'Logout'
+order: 8000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/logout/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "refresh_token": "{{customer_refresh_token}}"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      if (pm.environment.get("run_logout") !== "true") {
+        pm.execution.skipRequest();
+      }
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Logout returns 200 or 204", function () {
+        pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });

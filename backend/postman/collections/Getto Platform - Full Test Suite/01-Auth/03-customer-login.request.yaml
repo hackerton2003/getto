@@ -1,0 +1,34 @@
+$kind: http-request
+name: 'Login - Customer'
+order: 3000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/login/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "account_type": "customer",
+      "email": "{{customer_email}}",
+      "password": "{{customer_password}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Customer login returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      pm.test("Response contains access token", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("access");
+        pm.expect(json).to.have.property("refresh");
+        pm.expect(json.token_type).to.eql("Bearer");
+      });
+      const json = pm.response.json();
+      if (json.access) {
+        pm.environment.set("customer_access_token", json.access);
+        pm.environment.set("customer_refresh_token", json.refresh);
+      }

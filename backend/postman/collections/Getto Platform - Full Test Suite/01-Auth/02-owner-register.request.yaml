@@ -1,0 +1,39 @@
+$kind: http-request
+name: 'Register Owner'
+order: 2000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/register/owner/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "firstname": "{{owner_firstname}}",
+      "lastname": "{{owner_lastname}}",
+      "email": "{{owner_email}}",
+      "phone": "{{owner_phone}}",
+      "password": "{{owner_password}}"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      const stamp = Date.now();
+      pm.environment.set("owner_email", `postman-owner-${stamp}@example.test`);
+      pm.environment.set("owner_phone", `+2558${String(stamp).slice(-8)}`);
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner registration returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has id field", function () {
+        const json = pm.response.json();
+        pm.expect(json.account).to.have.property("id");
+        pm.expect(json).to.have.property("access");
+      });
+      const json = pm.response.json();
+      pm.environment.set("owner_access_token", json.access);
+      pm.environment.set("owner_refresh_token", json.refresh);

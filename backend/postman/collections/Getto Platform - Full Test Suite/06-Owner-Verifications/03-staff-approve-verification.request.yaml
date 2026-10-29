@@ -1,0 +1,27 @@
+$kind: http-request
+name: 'Staff - Approve Verification'
+order: 3000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/staff/verifications/{{verification_id}}/approve/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "remarks": "Approved via Postman test"
+    }
+scripts:
+  - type: beforeRequest
+    language: text/javascript
+    code: |-
+      if (!pm.environment.get("verification_id")) pm.execution.skipRequest();
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Approve verification returns 200", function () {
+        pm.response.to.have.status(200);
+      });

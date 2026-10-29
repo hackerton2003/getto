@@ -1,0 +1,8 @@
+$kind: collection
+name: '03 - Properties & Rooms'
+description: 'Owner creates and manages properties and rooms. Seeds property_id and room_id for booking tests.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{owner_access_token}}'

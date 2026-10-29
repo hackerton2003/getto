@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'List Roles'
+order: 2000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/staff/roles/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List roles returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      const json = pm.response.json();
+      const results = Array.isArray(json) ? json : (json.results || []);
+      if (results.length > 0) {
+        pm.environment.set("role_id", results[0].id);
+      }

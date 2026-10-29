@@ -1,0 +1,8 @@
+$kind: collection
+name: '06 - Owner Verifications'
+description: 'Owner submits verification documents; staff reviews and approves/rejects.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{owner_access_token}}'

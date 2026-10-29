@@ -1,0 +1,30 @@
+$kind: http-request
+name: 'Customer - Create Review After Confirmation'
+order: 3500
+method: POST
+url: '{{base_url}}/{{api_prefix}}/reviews/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "property_id": {{verified_property_id}},
+      "rating": 4,
+      "comment": "Great place, automated test review."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Create review returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      const body = pm.response.json();
+      if (body.id) pm.environment.set("review_id", body.id);
+      pm.test("New review waits for moderation", function () {
+        pm.expect(body.status).to.eql("pending");
+      });

@@ -1,0 +1,3 @@
+$kind: collection
+name: '02 - Locations & Universities'
+description: 'CRUD for regions, districts, wards, streets, universities, and campuses. Seeds IDs used by later tests.'

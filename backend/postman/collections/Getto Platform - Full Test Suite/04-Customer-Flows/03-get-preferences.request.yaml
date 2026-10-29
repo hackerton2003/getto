@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Get Customer Preferences'
+order: 3000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/customers/me/preferences/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Get preferences returns 200", function () {
+        pm.response.to.have.status(200);
+      });

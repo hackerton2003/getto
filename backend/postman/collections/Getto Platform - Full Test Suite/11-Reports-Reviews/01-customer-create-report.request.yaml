@@ -1,0 +1,25 @@
+$kind: http-request
+name: 'Customer - Create Property Report'
+order: 1000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/reports/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "property_id": {{verified_property_id}},
+      "reason": "Postman test report",
+      "description": "Testing the report workflow."
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Report created", () => pm.response.to.have.status(201));
+      const body = pm.response.json();
+      if (body.id) pm.environment.set("report_id", body.id);

@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'Staff - Approve Review'
+order: 5000
+method: PATCH
+url: '{{base_url}}/{{api_prefix}}/staff/reviews/{{review_id}}/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+body:
+  type: json
+  content: |-
+    { "status": "approved" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Review moderation returns 200", () => pm.response.to.have.status(200));
+      pm.expect(pm.response.json().status).to.eql("approved");

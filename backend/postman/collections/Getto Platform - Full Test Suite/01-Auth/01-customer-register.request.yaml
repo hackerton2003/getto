@@ -1,0 +1,34 @@
+$kind: http-request
+name: 'Register Customer'
+order: 1000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/auth/register/customer/'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "firstname": "{{customer_firstname}}",
+      "lastname": "{{customer_lastname}}",
+      "email": "{{customer_email}}",
+      "phone": "{{customer_phone}}",
+      "password": "{{customer_password}}",
+      "university": {{university_id}}
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Customer registration returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Response has id field", function () {
+        const json = pm.response.json();
+        pm.expect(json.account).to.have.property("id");
+        pm.expect(json).to.have.property("access");
+      });
+      const json = pm.response.json();
+      pm.environment.set("customer_access_token", json.access);
+      pm.environment.set("customer_refresh_token", json.refresh);

@@ -1,0 +1,13 @@
+$kind: http-request
+name: 'Staff - List Pending Reviews'
+order: 4000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/staff/reviews/?status=pending'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Staff review queue returns 200", () => pm.response.to.have.status(200));

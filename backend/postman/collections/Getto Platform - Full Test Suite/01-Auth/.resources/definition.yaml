@@ -1,0 +1,3 @@
+$kind: collection
+name: '01 - Auth & Token Management'
+description: 'Login, registration, token refresh, logout, and password reset for all account types.'

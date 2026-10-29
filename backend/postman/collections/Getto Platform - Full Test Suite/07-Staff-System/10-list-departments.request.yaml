@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'List Departments'
+order: 10000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/staff/departments/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List departments returns 200", function () {
+        pm.response.to.have.status(200);
+      });

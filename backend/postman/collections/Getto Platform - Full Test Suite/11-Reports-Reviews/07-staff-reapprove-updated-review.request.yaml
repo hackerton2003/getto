@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'Staff - Approve Updated Review'
+order: 7000
+method: PATCH
+url: '{{base_url}}/{{api_prefix}}/staff/reviews/{{review_id}}/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+body:
+  type: json
+  content: |-
+    { "status": "approved" }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Edited review can be reapproved", () => pm.response.to.have.status(200));
+      pm.expect(pm.response.json().status).to.eql("approved");

@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'Owner - List Pending Booking Requests'
+order: 2500
+method: GET
+url: '{{base_url}}/{{api_prefix}}/owners/me/bookings/?status=pending'
+headers:
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Owner pending bookings returns 200", () => pm.response.to.have.status(200));
+      const body = pm.response.json();
+      const rows = Array.isArray(body) ? body : (body.results || []);
+      const booking = rows.find((row) => row.status === "pending");
+      if (booking) pm.environment.set("booking_id", booking.id);

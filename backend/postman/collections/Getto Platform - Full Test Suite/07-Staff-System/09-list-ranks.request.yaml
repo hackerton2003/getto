@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'List Ranks'
+order: 9000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/staff/ranks/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{staff_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("List ranks returns 200", function () {
+        pm.response.to.have.status(200);
+      });

@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'List Campuses For University'
+order: 4000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/campuses/?university_id={{university_id}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Campus listing returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      const json = pm.response.json();
+      const results = json.results || json;
+      if (results.length && !pm.environment.get("campus_id")) {
+        pm.environment.set("campus_id", results[0].id);
+      }

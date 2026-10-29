@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Get Payment Detail'
+order: 5000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/payments/{{payment_id}}/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Get payment returns 200", function () {
+        pm.response.to.have.status(200);
+      });

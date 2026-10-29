@@ -1,0 +1,12 @@
+$kind: http-request
+name: 'Unauthenticated - Access Profile (should fail)'
+order: 1000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/customers/me/'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Unauthenticated request returns 401", function () {
+        pm.response.to.have.status(401);
+      });

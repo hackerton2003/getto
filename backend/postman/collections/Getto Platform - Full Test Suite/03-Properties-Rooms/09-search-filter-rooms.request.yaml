@@ -1,0 +1,11 @@
+$kind: http-request
+name: 'Search And Filter Rooms'
+order: 9000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/rooms/?search={{search_term}}&room_type={{room_type}}&min_price={{min_price}}&max_price={{max_price}}&capacity=1&ordering=price'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Filtered room search returns 200", () => pm.response.to.have.status(200));
+      pm.test("Rooms response is paginated", () => pm.expect(pm.response.json()).to.have.property("results"));

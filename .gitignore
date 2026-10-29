@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+backend/.venv/
+
+# Django
+*.log
+db.sqlite3
+staticfiles/
+
+# Environment
+.env
+.env.*
+
+# Local uploaded files
+storage/images/*
+storage/videos/*
+storage/documents/*
+storage/temp/*
+
+# Keep storage directory structure
+!storage/images/.gitkeep
+!storage/videos/.gitkeep
+!storage/documents/.gitkeep
+!storage/temp/.gitkeep
+
+# Node
+node_modules/
+.next/
+out/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

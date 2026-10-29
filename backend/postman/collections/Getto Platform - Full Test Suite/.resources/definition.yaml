@@ -1,0 +1,13 @@
+$kind: collection
+name: 'Getto Platform - Full Test Suite'
+description: |-
+  Request collection for manually and sequentially testing the Getto Platform API.
+  Includes current auth, customer, owner, booking, search, report, review,
+  moderation, staff, notification, webhook, and optional payment routes.
+
+  Run Order:
+  Setup requires an existing university and street, a staff account, and an
+  existing verified property with an available room for booking/review flows.
+  Run registration or login first, then use the saved tokens and IDs.
+
+  All requests use {{base_url}}/{{api_prefix}} and the selected local test environment.

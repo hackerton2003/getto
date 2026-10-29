@@ -1,0 +1,8 @@
+$kind: collection
+name: '08 - Notifications & Webhooks'
+description: 'List and mark notifications as read. Manage webhook subscriptions.'
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{customer_access_token}}'

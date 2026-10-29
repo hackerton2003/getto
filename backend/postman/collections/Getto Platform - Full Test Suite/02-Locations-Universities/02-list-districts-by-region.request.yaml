@@ -1,0 +1,17 @@
+$kind: http-request
+name: 'List Districts For Region'
+order: 2000
+method: GET
+url: '{{base_url}}/{{api_prefix}}/locations/districts/?region_id={{region_id}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("District listing returns 200", function () {
+        pm.response.to.have.status(200);
+      });
+      const json = pm.response.json();
+      const results = json.results || json;
+      if (results.length && !pm.environment.get("district_id")) {
+        pm.environment.set("district_id", results[0].id);
+      }

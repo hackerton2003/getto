@@ -1,0 +1,37 @@
+$kind: http-request
+name: 'Owner - Create Room'
+order: 5000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/owners/me/properties/{{property_id}}/rooms/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "room_type": "{{room_type}}",
+      "price": "{{min_price}}",
+      "capacity": 1,
+      "length_m": "4.00",
+      "width_m": "3.00",
+      "facilities": "Desk",
+      "security_info": "Secure entry"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Create room returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Room has id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+      });
+      const json = pm.response.json();
+      if (json.id) {
+        pm.environment.set("new_room_id", json.id);
+      }

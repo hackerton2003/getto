@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Mark Notification as Read'
+order: 2000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/notifications/{{notification_id}}/read/'
+headers:
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Mark notification read returns 200 or 204", function () {
+        pm.expect(pm.response.code).to.be.oneOf([200, 204]);
+      });

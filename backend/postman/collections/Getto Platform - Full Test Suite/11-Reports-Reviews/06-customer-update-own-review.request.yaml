@@ -1,0 +1,20 @@
+$kind: http-request
+name: 'Customer - Update Own Review'
+order: 6000
+method: PATCH
+url: '{{base_url}}/{{api_prefix}}/reviews/{{review_id}}/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{customer_access_token}}'
+body:
+  type: json
+  content: |-
+    { "rating": 5, "comment": "Updated in Postman; requires moderation again." }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Review update returns 200", () => pm.response.to.have.status(200));
+      pm.expect(pm.response.json().status).to.eql("pending");

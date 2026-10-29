@@ -1,0 +1,114 @@
+name: Getto Local API Test
+values:
+  - key: base_url
+    value: 'http://127.0.0.1:8000'
+  - key: api_prefix
+    value: api/v1
+  - key: customer_access_token
+    value: ''
+  - key: customer_refresh_token
+    value: ''
+  - key: owner_access_token
+    value: ''
+  - key: owner_refresh_token
+    value: ''
+  - key: staff_access_token
+    value: ''
+  - key: staff_refresh_token
+    value: ''
+  - key: customer_email
+    value: manekijulu@gmail.com
+  - key: customer_password
+    value: Mane@123!
+  - key: customer_phone
+    value: '+255700000001'
+  - key: customer_firstname
+    value: Mane
+  - key: customer_lastname
+    value: Kijulu
+  - key: owner_email
+    value: kijuluhalid@gmail.com
+  - key: owner_password
+    value: kijulu84!
+  - key: owner_phone
+    value: '+255700000002'
+  - key: owner_firstname
+    value: Kijulu
+  - key: owner_lastname
+    value: Halid
+  - key: staff_email
+    value: ramso.staff@gmail.com
+  - key: staff_password
+    value: StaffPass123!
+  - key: street_id
+    value: 1
+  - key: university_id
+    value: 1
+  - key: property_id
+    value: 1
+  - key: verified_property_id
+    value: 1
+  - key: room_id
+    value: 1
+  - key: new_room_id
+    value: 10
+  - key: property_media_id
+    value: 1
+  - key: room_media_id
+    value: 1
+  - key: booking_id
+    value: 1
+  - key: booking_id_2
+    value: '1'
+  - key: payment_id
+    value: 1
+  - key: verification_id
+    value: 1
+  - key: verification_id_2
+    value: 1
+  - key: document_id
+    value: 1
+  - key: notification_id
+    value: 1
+  - key: favourite_property_id
+    value: 1
+  - key: region_id
+    value: 1
+  - key: district_id
+    value: 1
+  - key: ward_id
+    value: 1
+  - key: role_id
+    value: 1
+  - key: staff_id
+    value: 1
+  - key: password_reset_token
+    value: ''
+  - key: booking_status
+    value: pending
+  - key: review_id
+    value: 1
+  - key: report_id
+    value: 1
+  - key: webhook_id
+    value: 1
+  - key: webhook_secret
+    value: 
+  - key: webhook_target_url
+    value: 'https://webhook.site/replace-with-your-test-id'
+  - key: run_file_uploads
+    value: 'false'
+  - key: property_name
+    value: Postman Test Property
+  - key: search_term
+    value: student
+  - key: min_price
+    value: '50000'
+  - key: max_price
+    value: '500000'
+  - key: room_type
+    value: single
+  - key: campus_latitude
+    value: '-6.8000000'
+  - key: campus_longitude
+    value: '39.2800000'

@@ -1,0 +1,35 @@
+$kind: http-request
+name: 'Owner - Create Property'
+order: 2000
+method: POST
+url: '{{base_url}}/{{api_prefix}}/owners/me/properties/'
+headers:
+  - key: Content-Type
+    value: application/json
+  - key: Authorization
+    value: 'Bearer {{owner_access_token}}'
+body:
+  type: json
+  content: |-
+    {
+      "name": "{{property_name}}",
+      "description": "Postman API test property",
+      "street": {{street_id}},
+      "latitude": "{{campus_latitude}}",
+      "longitude": "{{campus_longitude}}"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Create property returns 201", function () {
+        pm.response.to.have.status(201);
+      });
+      pm.test("Property has id", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property("id");
+      });
+      const json = pm.response.json();
+      if (json.id) {
+        pm.environment.set("property_id", json.id);
+      }

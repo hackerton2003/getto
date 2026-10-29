@@ -1,0 +1,14 @@
+$kind: http-request
+name: 'Public - List Approved Property Reviews'
+order: 5500
+method: GET
+url: '{{base_url}}/{{api_prefix}}/reviews/?property_id={{verified_property_id}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Public review listing returns 200", () => pm.response.to.have.status(200));
+      const rows = pm.response.json();
+      pm.test("Public results contain approved reviews only", () => {
+        rows.forEach((row) => pm.expect(row.status).to.eql("approved"));
+      });
